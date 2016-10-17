@@ -3,7 +3,7 @@
 const EventEmitter = require('events').EventEmitter;
 const vkey = require('vkey');
 
-const MAX_LINES = 999;
+const MAX_LINES = 9999;
 
 class ConsoleWidget extends EventEmitter {
   constructor(opts) {
@@ -63,7 +63,12 @@ class ConsoleWidget extends EventEmitter {
   }
 
   log(text) {
-    this.logNode(document.createTextNode(text));
+    for(var item in text.split("\n"))
+      this.logNode(document.createTextNode(item));
+  }
+
+  clear() {
+    this.outputNode.innerHTML = ""
   }
 
   logNode(node) {
